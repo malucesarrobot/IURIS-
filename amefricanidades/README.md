@@ -22,7 +22,7 @@ Máscaras com votos não podem ser ocultadas pelo painel. O ranking preserva emp
 
 ## Configuração administrativa pendente
 
-1. Criar o repositório `amefricanidades` na conta `malucesarrobot` e enviar os arquivos. Ativar GitHub Pages na branch principal, pasta raiz.
+1. A publicação está ativa no repositório `malucesarrobot/IURIS-`, branch `main`, pasta `amefricanidades`: https://malucesarrobot.github.io/IURIS-/amefricanidades/. Preserve os arquivos existentes do Iuris. Atualizações desta subpasta são publicadas pelo Pages já configurado.
 2. Em Firebase Authentication, autorizar o domínio do GitHub Pages e conferir os provedores Google e Anonymous. Evitar alterações em provedores já utilizados pelos outros aplicativos.
 3. Ler as regras existentes do Realtime Database e adicionar somente a propriedade de `database.rules.fragment.json` dentro de `rules`. Preservar todos os demais ramos. O arquivo `database.rules.test.json` é exclusivamente para um projeto vazio/emulador: NÃO substitui as regras atuais do Leciona.
 4. Verificar se algum `.read` ou `.write` do projeto existente em um ancestral concede permissões mais amplas, pois regras de filhos não revogam concessões em ancestrais. Não publicar sem conferir esse ponto.
@@ -36,7 +36,7 @@ O QR code usa o endereço onde a página foi aberta. `voteUrl` em `config.js` po
 
 `node --check app.js`
 
-Os testes cobrem escolhas distintas, totalização, empates, exclusão do 9º ano, consolidação por matrícula e homônimos. A inspeção de regras em arquivo não substitui teste no emulador/Firebase. Os testes em produção exigem sessão administrativa ativa.
+Os testes cobrem escolhas distintas, totalização, empates, exclusão do 9º ano, consolidação por matrícula e homônimos. A inspeção de regras em arquivo não substitui teste no emulador/Firebase. Os testes em produção exigem sessão administrativa ativa. Consulte `CONCLUIR-FIREBASE.md` para a entrega administrativa e o estado das verificações.
 
 ## Dependências
 

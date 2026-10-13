@@ -23,6 +23,11 @@
     rows.forEach((row,i) => {row.position = i && rows[i-1].votes === row.votes ? rows[i-1].position : i+1;});
     return {rows, participants, total};
   }
+  function csvCell(value) {
+    let text = String(value ?? '');
+    if (/^[\s\uFEFF]*[=+\-@]/.test(text)) text = "'" + text;
+    return '"' + text.replace(/"/g,'""') + '"';
+  }
   function pickRoster(source, allowed) {
     const result = {};
     const candidates = [];
@@ -54,7 +59,7 @@
     }
     return result;
   }
-  const api = {normalizeClass, validChoices, ranking, pickRoster};
+  const api = {normalizeClass, validChoices, ranking, pickRoster, csvCell};
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.ContestCore = api;
 })(typeof globalThis === 'object' ? globalThis : this);
