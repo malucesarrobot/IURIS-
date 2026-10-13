@@ -1,0 +1,99 @@
+{
+  "amefricanidades_2026": {
+    "catalog": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email_verified === true && (auth.token.email === 'prof.malufc@gmail.com' || auth.token.email === 'malu.cesar@gmail.com')",
+      "$mask": {
+        ".validate": "newData.hasChildren(['number','title','text','photo','authors','active','updatedAt'])",
+        "number": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 9999 && newData.val() % 1 === 0"
+        },
+        "title": {
+          ".validate": "newData.isString() && newData.val().length <= 100"
+        },
+        "text": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 5000"
+        },
+        "photo": {
+          ".validate": "newData.isString() && newData.val().beginsWith('data:image/jpeg;base64,') && newData.val().length <= 400000"
+        },
+        "active": {
+          ".validate": "newData.isBoolean()"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
+        "authors": {
+          ".validate": "newData.hasChild('first')",
+          "first": {
+            ".validate": "newData.hasChildren(['id','name','className'])"
+          },
+          "second": {
+            ".validate": "newData.hasChildren(['id','name','className']) && newData.child('id').val() !== newData.parent().child('first/id').val()"
+          },
+          "$other": {
+            ".validate": false
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "roster": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.email_verified === true && (auth.token.email === 'prof.malufc@gmail.com' || auth.token.email === 'malu.cesar@gmail.com')",
+      "$student": {
+        ".validate": "newData.hasChildren(['name','className'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 200"
+        },
+        "className": {
+          ".validate": "newData.val() === '1ªA' || newData.val() === '1ªB' || newData.val() === '2ªA' || newData.val() === '2ªB' || newData.val() === '3ªA' || newData.val() === '3ªB' || newData.val() === '3ªC'"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "settings": {
+      ".read": true,
+      ".write": "auth != null && auth.token.email_verified === true && (auth.token.email === 'prof.malufc@gmail.com' || auth.token.email === 'malu.cesar@gmail.com')",
+      "open": {
+        ".validate": "newData.isBoolean()"
+      },
+      "updatedAt": {
+        ".validate": "newData.isNumber()"
+      },
+      "$other": {
+        ".validate": false
+      }
+    },
+    "ballots": {
+      ".read": "auth != null",
+      "$student": {
+        ".write": "auth != null && !data.exists() && newData.exists() && root.child('amefricanidades_2026').child('settings/open').val() === true && root.child('amefricanidades_2026').child('roster').child($student).exists()",
+        ".validate": "newData.hasChildren(['first','second','third','at']) && newData.child('first').isString() && root.child('amefricanidades_2026').child('catalog').child(newData.child('first').val()).child('active').val() === true && newData.child('second').isString() && root.child('amefricanidades_2026').child('catalog').child(newData.child('second').val()).child('active').val() === true && newData.child('third').isString() && root.child('amefricanidades_2026').child('catalog').child(newData.child('third').val()).child('active').val() === true && newData.child('first').val() !== newData.child('second').val() && newData.child('first').val() !== newData.child('third').val() && newData.child('second').val() !== newData.child('third').val()",
+        "first": {
+          ".validate": "newData.isString()"
+        },
+        "second": {
+          ".validate": "newData.isString()"
+        },
+        "third": {
+          ".validate": "newData.isString()"
+        },
+        "at": {
+          ".validate": "newData.isNumber() && newData.val() <= now && newData.val() >= now - 60000"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "$other": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
